@@ -2,7 +2,7 @@ from datetime import datetime
 
 now = datetime.now()
 time_now = (now.strftime("%I:%M:%S %d %b %Y"))
-with open(r'/etc/ansible/playbooks/timestamp_file', 'w') as file:
+with open(r'/etc/ansible/ansible_main/playbooks/timestamp_file', 'w') as file:
 	file.write(str(time_now)) 
 #print(str(time_now))
 

@@ -1,0 +1,39 @@
+---
+
+#cisco_ios_switches:
+#  hosts:
+      
+      
+#cisco_ios_switches:
+#  hosts:
+
+#  vars:
+#    ansible_user: itadmin
+#    ansible_password: M@rm0t5!~!
+#    ansible_remote_port: 22
+#    ansible_host_key_auto_add: true
+#    ansible_host_key_checking: false 
+#    ansible_become_method: enable
+#    ansible_become_user: cisco
+#    ansible_become_password: dmr909 
+#    ansible_connection: network_cli 
+#    ansible_network_os: ios
+      
+#cisco_iosxe_switches:
+#  hosts:
+#    
+#  vars:
+#    ansible_user: itadmin
+#    ansible_password: M@rm0t5!~!
+#    ansible_remote_port: 22
+#    ansible_host_key_auto_add: true
+#    ansible_host_key_checking: false 
+#    ansible_become_method: enable
+#    ansible_become_user: cisco
+#    ansible_become_password: dmr909 
+#    ansible_connection: network_cli 
+#    ansible_network_os: ios
+ 
+
+
+       

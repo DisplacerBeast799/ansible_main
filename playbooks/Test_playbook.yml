@@ -1,0 +1,36 @@
+--- 
+
+
+  - name: Test playbook for Cisco IOS commands
+
+    hosts: cisco_catalyst_switches_test
+    gather_facts: false
+ 
+    tasks:
+      - name: Configure terminal  
+        cisco.ios.ios_command:
+          commands: configure terminal
+          wait_for: result[0] contains (config)#
+
+      - name: Send multiple commands
+        cisco.ios.ios_command:
+          commands:
+            - interface gig 1/0/20
+            - switchport mode access
+            - switchport access vlan 10
+            - description Test_Description
+            - exit
+          wait_for: result[0] contains (config-if)#
+
+      - name: Send more commands
+        cisco.ios.ios_command:
+          commands:
+            - interface gig 1/0/19
+            - switchport mode access
+            - switchport access vlan 20
+            - description Another_Test_Description
+            - exit
+          wait_for: result[0] contains (config-if)#  
+      
+
+

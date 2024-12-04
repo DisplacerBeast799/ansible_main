@@ -71,7 +71,7 @@
           - vlan 224  
           - name IPTV
           - vlan 300  
-          - name unknown2 
+          - name unknown1 
           - vlan 778  
           - name BrainStormCorpBackup 
           - vlan 779  
@@ -85,7 +85,100 @@
           - vlan 901  
           - name Internet_Backhaul 
           - vlan 940  
-          - name DMU_CableModems          
+          - name DMU_CableModems
+          - interface vlan 3
+          - description printers
+          - end
+          - interface vlan 7 
+          - description wireless_bridges
+          - end
+          - interface vlan 9 
+          - description cams
+          - end
+          - interface vlan 10
+          - description workstations
+          - end
+          - interface vlan 11
+          - description iscsi
+          - end
+          - interface vlan 12
+          - description salespoints
+          - end
+          - interface vlan 13
+          - description workstations_aux
+          - end
+          - interface vlan 14
+          - description servers
+          - end
+          - interface vlan 20
+          - description phones_infra
+          - end
+          - interface vlan 21
+          - description phones
+          - end
+          - interface vlan 30
+          - description wifi_infra
+          - end
+          - interface vlan 31
+          - description wifi_internal
+          - end
+          - interface vlan 32
+          - description wifi_external
+          - end
+          - interface vlan 64
+          - description wifi_free
+          - end
+          - interface vlan 208
+          - description cmts_mgmt
+          - end
+          - interface vlan 209
+          - description cable_modems
+          - end
+          - interface vlan 250
+          - description radios
+          - end
+          - interface vlan 60
+          - description unknown
+          - end
+          - interface vlan 128  
+          - description DMU_Wifi_Mgmt
+          - end
+          - interface vlan 132  
+          - description DMU_WiFi_InternalIP
+          - end
+          - interface vlan 136  
+          - description DMU_PublicIP
+          - end
+          - interface vlan 137  
+          - description DurangoTV
+          - end
+          - interface vlan 224  
+          - description IPTV
+          - end
+          - interface vlan 300  
+          - description unknown1 
+          - end
+          - interface vlan 778  
+          - description BrainStormCorpBackup
+          - end 
+          - interface vlan 779  
+          - description P2P_To_Main 
+          - end
+          - interface vlan 800 
+          - description Brainstorm_Traffic1 
+          - end
+          - interface vlan 881  
+          - description Brainstorm_Traffic2
+          - end 
+          - interface vlan 900  
+          - description P2P_Backhaul
+          - end 
+          - interface vlan 901  
+          - description Internet_Backhaul
+          - end 
+          - interface vlan 940
+          - description DMU_CableModems
+          - end  
           - no errdisable detect cause gbic-invalid
           - no errdisable detect cause pagp-flap
           - no errdisable detect cause dtp-flap

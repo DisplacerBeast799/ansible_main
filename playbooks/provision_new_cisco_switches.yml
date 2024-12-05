@@ -254,7 +254,10 @@
         before:
           - interface vlan 1
 
-            no errdisable detect cause gbic-invalid
+    - name: configure err-disable detect and recovery
+      cisco.ios.ios_config:
+        lines:
+          - no errdisable detect cause gbic-invalid
           - no errdisable detect cause pagp-flap
           - no errdisable detect cause dtp-flap
           - no errdisable detect cause link-flap
@@ -283,6 +286,225 @@
           - errdisable recovery cause psp
           - errdisable recovery cause mrp-miscabling
           - errdisable recovery interval 30
+   
+    - name: add int vlan 3
+      cisco.ios.ios_config:
+        lines:
+          - description printers
+        before:
+          - interface vlan 3
+
+    - name: add int vlan 7
+      cisco.ios.ios_config:
+        lines:
+          - description wireless_bridges
+        before:
+          - interface vlan 7
+
+    - name: add int vlan 9
+      cisco.ios.ios_config:
+        lines:
+          - description cams
+        before:
+          - interface vlan 9
+
+    - name: add int vlan 10
+      cisco.ios.ios_config:
+        lines:
+          - description workstations_aux
+        before:
+          - interface vlan 10
+          
+    - name: add int vlan 11
+      cisco.ios.ios_config:
+        lines:
+          - description iscsi
+        before:
+          - interface vlan 11
+          
+    - name: add int vlan 12
+      cisco.ios.ios_config:
+        lines:
+          - description salespoints
+        before:
+          - interface vlan 12
+          
+    - name: add int vlan 13
+      cisco.ios.ios_config:
+        lines:
+          - description workstations_aux
+        before:
+          - interface vlan 13
+          
+    - name: add int vlan 14
+      cisco.ios.ios_config:
+        lines:
+          - description servers
+        beforea:
+          - interface vlan 14
+          
+    - name: add int vlan 20
+      cisco.ios.ios_config:
+        lines:
+          - description phones_infra
+        before:
+          - interface vlan 20
+          
+    - name: add int vlan 21
+      cisco.ios.ios_config:
+        lines:
+          - description phones
+        before:
+          - interface vlan 21
+    
+    - name: add int vlan 30
+      cisco.ios.ios_config:
+        lines:
+          - description wifi_infra
+        before:
+          - interface vlan 30 
+          
+    - name: add int vlan 31
+      cisco.ios.ios_config:
+        lines:
+          - description wifi_internal
+        before:
+          - interface vlan 31
+          
+    - name: add int vlan 32
+      cisco.ios.ios_config:
+        lines:
+          - description wifi_external
+        before:
+          - interface vlan 32
+
+    - name: add int vlan 64
+      cisco.ios.ios_config:
+        lines:
+          - description wifi_free
+        before:
+          - interface vlan 64
+
+    - name: add int vlan 208
+      cisco.ios.ios_config:
+        lines:
+          - description docsis_mgmt
+        before:
+          - interface vlan 208
+          
+    - name: add int vlan 209
+      cisco.ios.ios_config:
+        lines:
+          - description cable_modems
+        before:
+          - interface vlan 209
+
+    - name: add int vlan 250
+      cisco.ios.ios_config:
+        lines:
+          - description radios
+        before:
+          - interface vlan 250      
+
+    - name: add int vlan 60
+      cisco.ios.ios_config:
+        lines:
+          - description unknown
+        before:
+          - interface vlan 60
+          
+    - name: add int vlan 128
+      cisco.ios.ios_config:
+        lines:
+          - description DMU_Wifi_Mgmt
+        before:
+          - interface vlan 128
+          
+    - name: add int vlan 132
+      cisco.ios.ios_config:
+        lines:
+          - description DMU_WiFi_InternalIP
+        before:
+          - interface vlan 132  
+          
+    - name: add int vlan 136
+      cisco.ios.ios_config:
+        lines:
+          - description DMU_PublicIP
+        before:
+          - interface vlan 136
+          
+    - name: add int vlan 137
+      cisco.ios.ios_config:
+        lines:
+          - description DurangoTV
+        before:
+          - interface vlan 137  
+   
+    - name: add int vlan 224
+      cisco.ios.ios_config:
+        lines:
+          - description IPTV
+        before:
+          - interface vlan 224  
+          
+    - name: add int vlan 300
+      cisco.ios.ios_config:
+        lines:
+          - description unknown1
+        before:
+          - interface vlan 300  
+          
+    - name: add int vlan 778
+      cisco.ios.ios_config:
+        lines:
+          - description BrainStormCorpBackup
+        before:
+          - interface vlan 778  
+          
+    - name: add int vlan 779
+      cisco.ios.ios_config:
+        lines:
+          - description P2P_To_Main
+        before:
+          - interface vlan 779  
+          
+    - name: add int vlan 800
+      cisco.ios.ios_config:
+        lines:
+          - description Brainstorm_Traffic1
+        before:
+          - interface vlan 800 
+          
+    - name: add int vlan 881
+      cisco.ios.ios_config:
+        lines:
+          - description Brainstorm_Traffic2
+        before:
+          - interface vlan 881  
+          
+    - name: add int vlan 900
+      cisco.ios.ios_config:
+        lines:
+          - description P2P_Backhaul
+        before:
+          - interface vlan 900
+
+    - name: add int vlan 901
+      cisco.ios.ios_config:
+        lines:
+          - description Internet_Backhaul
+        before: 
+          - interface vlan 901  
+          
+    - name: add int vlan 940
+      cisco.ios.ios_config:
+        lines:
+          - description DMU_CableModems
+        before:
+          - interface vlan 940  
+
+            
           # TODO: choose how to handle this "transceiver type all" command.  Probs as its own play since "monitoring" is a sub-command of the main cmd
           # TODO: also I may configure each "configure interface" command (the ones that concern the vlans and contain the "end" command) as their own
           # plays in order to avoid potential errors

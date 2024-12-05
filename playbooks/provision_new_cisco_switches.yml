@@ -167,132 +167,94 @@
           - name DMU_WiFi_InternalIP
         before:
           - vlan 132  
-          - name DMU_WiFi_InternalIP
-          - vlan 136  
+          
+    - name: add vlan 136
+      cisco.ios.ios_config:
+        lines:
           - name DMU_PublicIP
-          - vlan 137  
+        before:
+          - vlan 136
+          
+    - name: add vlan 137
+      cisco.ios.ios_config:
+        lines:
           - name DurangoTV
-          - vlan 208  
-          - name CMTS_Mgmt
-          - vlan 209 
-          - name Cable_Modems 
-          - vlan 224  
+        before:
+          - vlan 137  
+   
+    - name: add vlan 224
+      cisco.ios.ios_config:
+        lines:
           - name IPTV
+        before:
+          - vlan 224  
+          
+    - name: add vlan 300
+      cisco.ios.ios_config:
+        lines:
+          - name unknown1
+        before:
           - vlan 300  
-          - name unknown1 
+          
+    - name: add vlan 778
+      cisco.ios.ios_config:
+        lines:
+          - name BrainStormCorpBackup
+        before:
           - vlan 778  
-          - name BrainStormCorpBackup 
+          
+    - name: add vlan 779
+      cisco.ios.ios_config:
+        lines:
+          - name P2P_To_Main
+        before:
           - vlan 779  
-          - name P2P_To_Main 
+          
+    - name: add vlan 800
+      cisco.ios.ios_config:
+        lines:
+          - name Brainstorm_Traffic1
+        before:
           - vlan 800 
-          - name Brainstorm_Traffic1 
+          
+    - name: add vlan 881
+      cisco.ios.ios_config:
+        lines:
+          - name Brainstorm_Traffic2
+        before:
           - vlan 881  
-          - name Brainstorm_Traffic2 
-          - vlan 900  
-          - name P2P_Backhaul 
+          
+    - name: add vlan 900
+      cisco.ios.ios_config:
+        lines:
+          - name P2P_Backhaul
+        before:
+          - vlan 900
+
+    - name: add vlan 901
+      cisco.ios.ios_config:
+        lines:
+          - name Internet_Backhaul
+        before: 
           - vlan 901  
-          - name Internet_Backhaul 
-          - vlan 940  
+          
+    - name: add vlan 940
+      cisco.ios.ios_config:
+        lines:
           - name DMU_CableModems
-          - interface vlan 1
+        before:
+          - vlan 940  
+          
+    - name: shutdown interface vlan 1
+      cisco.ios.ios_config:
+        lines:
           - no spanning-tree vlan 1
           - no ip address
           - shutdown
-          - end
-          - interface vlan 3
-          - description printers
-          - end
-          - interface vlan 7 
-          - description wireless_bridges
-          - end
-          - interface vlan 9 
-          - description cams
-          - end
-          - interface vlan 10
-          - description workstations
-          - end
-          - interface vlan 11
-          - description iscsi
-          - end
-          - interface vlan 12
-          - description salespoints
-          - end
-          - interface vlan 13
-          - description workstations_aux
-          - end
-          - interface vlan 14
-          - description servers
-          - end
-          - interface vlan 20
-          - description phones_infra
-          - end
-          - interface vlan 21
-          - description phones
-          - end
-          - interface vlan 30
-          - description wifi_infra
-          - end
-          - interface vlan 31
-          - description wifi_internal
-          - end
-          - interface vlan 32
-          - description wifi_external
-          - end
-          - interface vlan 64
-          - description wifi_free
-          - end
-          - interface vlan 208
-          - description cmts_mgmt
-          - end
-          - interface vlan 209
-          - description cable_modems
-          - end
-          - interface vlan 250
-          - description radios
-          - end
-          - interface vlan 60
-          - description unknown
-          - end
-          - interface vlan 128  
-          - description DMU_Wifi_Mgmt
-          - end
-          - interface vlan 132  
-          - description DMU_WiFi_InternalIP
-          - end
-          - interface vlan 136  
-          - description DMU_PublicIP
-          - end
-          - interface vlan 137  
-          - description DurangoTV
-          - end
-          - interface vlan 224  
-          - description IPTV
-          - end
-          - interface vlan 300  
-          - description unknown1 
-          - end
-          - interface vlan 778  
-          - description BrainStormCorpBackup
-          - end 
-          - interface vlan 779  
-          - description P2P_To_Main 
-          - end
-          - interface vlan 800 
-          - description Brainstorm_Traffic1 
-          - end
-          - interface vlan 881  
-          - description Brainstorm_Traffic2
-          - end 
-          - interface vlan 900  
-          - description P2P_Backhaul
-          - end 
-          - interface vlan 901  
-          - description Internet_Backhaul
-          - end 
-          - interface vlan 940
-          - description DMU_CableModems
-          - end  
-          - no errdisable detect cause gbic-invalid
+        before:
+          - interface vlan 1
+
+            no errdisable detect cause gbic-invalid
           - no errdisable detect cause pagp-flap
           - no errdisable detect cause dtp-flap
           - no errdisable detect cause link-flap

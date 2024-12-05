@@ -1,0 +1,88 @@
+---
+
+#cisco_ios_switches:
+#  hosts:
+#    10.2.2.104:
+#    10.2.2.19:
+#    10.2.2.30:
+      
+      
+#cisco_ios_switches:
+#  hosts:
+#    10.2.2.104:
+#    10.2.2.18:
+#    10.2.2.158:
+#    10.2.2.155:
+#    10.2.2.186:
+#    10.2.2.118:
+#    10.2.2.114: 
+#    10.2.2.110: 
+#    10.2.2.157: 
+#    10.2.2.36:
+#    10.2.2.16:
+#    10.2.2.26:
+#    10.2.2.202:
+#    10.2.2.102:
+#    10.2.2.30:
+#    10.2.2.201: 
+#    10.2.2.19:
+#    10.2.2.253: 
+#    10.2.2.103: 
+#    10.2.2.149:
+#    10.2.2.113: 
+#    10.2.2.104: 
+#    10.2.2.120: 
+#    10.2.2.124: 
+#    10.2.2.126: 
+#    10.2.2.127: 
+#    10.2.2.128:
+
+#  vars:
+#    ansible_user: itadmin
+#    ansible_password: M@rm0t5!~!
+#    ansible_remote_port: 22
+#    ansible_host_key_auto_add: true
+#    ansible_host_key_checking: false 
+#    ansible_become_method: enable
+#    ansible_become_user: cisco
+#    ansible_become_password: dmr909 
+#    ansible_connection: network_cli 
+#    ansible_network_os: ios
+      
+      #cisco_iosxe_switches:
+      #  hosts:
+      #    10.2.2.123:
+      #    10.2.2.180: 
+
+#cisco_iosxe_switches:
+#  hosts:
+#    10.2.2.123:
+#    10.2.2.180: 
+#    10.2.2.45: 
+#    10.2.2.121: 
+#    10.2.2.4: 
+#    10.2.2.150: 
+#    10.2.2.51: 
+#    10.2.2.224: 
+#    10.2.2.20: 
+#    10.2.2.106: 
+#    10.2.2.101: 
+#    10.2.2.251: 
+#    10.2.2.115: 
+#    10.2.2.13:
+    
+#  vars:
+#    ansible_user: itadmin
+#    ansible_password: M@rm0t5!~!
+#    ansible_remote_port: 22
+#    ansible_host_key_auto_add: true
+#    ansible_host_key_checking: false 
+#    ansible_become_method: enable
+#    ansible_become_user: cisco
+#    ansible_become_password: dmr909 
+#    ansible_connection: network_cli 
+#    ansible_network_os: ios
+ 
+
+
+       

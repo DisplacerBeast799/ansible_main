@@ -29,6 +29,7 @@
       cisco.ios.ios_command:
         commands:
           - clock set {{ lookup('ansible.builtin.file', '/etc/ansible/ansible_main/playbooks/timestamp_file') }}
-          - write memory 
-
+    - name: save our changes
+      cisco.ios.ios_config:
+        save_when: modified
 

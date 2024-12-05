@@ -3,8 +3,8 @@
 - name: give the network switch an initial, base config for our environment
   hosts: 
     cisco_ios_switches
-  become: True
-  gather_facts: False
+  become: true
+  gather_facts: false
   tasks:
     - name: send the config commands 
       cisco.ios.ios_config:
@@ -14,14 +14,12 @@
           - spanning-tree mst 0 priority 61440
           - ntp server 10.2.14.101
           - clock timezone mst -7
-          - clock summertime mst recurring
+          - clock summer-time mst recurring
           - lldp run
           - cdp run
-          - boot fast
-          - ip snmp-server community 1Lynk890 RO
-          - ip snmp-server host 10.2.13.21 version 2c 1Lynk890
-          - tranceiver type all
-          - monitoring
+          - service unsupported-transceiver
+          - snmp-server community 1Lynk890 RO
+          - snmp-server host 10.2.13.21 version 2c 1Lynk890
           - spanning-tree portfast bpduguard default
           - spanning-tree portfast bpdufilter default
           - login on-success log
@@ -29,49 +27,145 @@
           - ip http server
           - ip http authentication local
           - ip http secure-server
-          - interface vlan 1
-          - no spanning-tree
-          - no ip address
-          - shutdown
-          - end
-          - vlan 3
+
+    - name: add vlan 3
+      cisco.ios.ios_config:
+        lines:
           - name printers
-          - vlan 7 
+        before:
+          - vlan 3
+
+    - name: add vlan 7
+      cisco.ios.ios_config:
+        lines:
           - name wireless_bridges
-          - vlan 9 
+        before:
+          - vlan 7
+
+    - name: add vlan 9
+      cisco.ios.ios_config:
+        lines:
           - name cams
-          - vlan 10
-          - name workstations
-          - vlan 11
-          - name iscsi
-          - vlan 12
-          - name salespoints
-          - vlan 13
+        before:
+          - vlan 9
+
+    - name: add vlan 10
+      cisco.ios.ios_config:
+        lines:
           - name workstations_aux
-          - vlan 14
+        before:
+          - vlan 10
+          
+    - name: add vlan 11
+      cisco.ios.ios_config:
+        lines:
+          - name iscsi
+        before:
+          - vlan 11
+          
+    - name: add vlan 12
+      cisco.ios.ios_config:
+        lines:
+          - name salespoints
+        before:
+          - vlan 12
+          
+    - name: add vlan 13
+      cisco.ios.ios_config:
+        lines:
+          - name workstations_aux
+        before:
+          - vlan 13
+          
+    - name: add vlan 14
+      cisco.ios.ios_config:
+        lines:
           - name servers
-          - vlan 20
+        beforea:
+          - vlan 14
+          
+    - name: add vlan 20
+      cisco.ios.ios_config:
+        lines:
           - name phones_infra
-          - vlan 21
+        before:
+          - vlan 20
+          
+    - name: add vlan 21
+      cisco.ios.ios_config:
+        lines:
           - name phones
-          - vlan 30 
+        before:
+          - vlan 21
+    
+    - name: add vlan 30
+      cisco.ios.ios_config:
+        lines:
           - name wifi_infra
-          - vlan 31
+        before:
+          - vlan 30 
+          
+    - name: add vlan 31
+      cisco.ios.ios_config:
+        lines:
           - name wifi_internal
-          - vlan 32
+        before:
+          - vlan 31
+          
+    - name: add vlan 32
+      cisco.ios.ios_config:
+        lines:
           - name wifi_external
-          - vlan 64
-          - name wifi_free
-          - vlan 208
+        before:
+          - vlan 32
+
+    - name: add vlan 64
+      cisco.ios.ios_config:
+        lines:
+          name wifi_free
+        before:
+          vlan 64
+
+    - name: add vlan 208
+      cisco.ios.ios_config:
+        lines:
           - name docsis_mgmt
+        before:
+          - vlan 208
+          
+    - name: add vlan 209
+      cisco.ios.ios_config:
+        lines:
+          - name cable_modems
+        before:
           - vlan 209
-          - name docsis_dhcp
-          - vlan 250
+
+    - name: add vlan 250
+      cisco.ios.ios_config:
+        lines:
           - name radios
-          - vlan 60
+        before:
+          - vlan 250      
+
+    - name: add vlan 60
+      cisco.ios.ios_config:
+        lines:
           - name unknown
-          - vlan 128  
+        before:
+          - vlan 60
+          
+    - name: add vlan 128
+      cisco.ios.ios_config:
+        lines:
           - name DMU_Wifi_Mgmt
+        before:
+          - vlan 128
+          
+    - name: add vlan 132
+      cisco.ios.ios_config:
+        lines:
+          - name DMU_WiFi_InternalIP
+        before:
           - vlan 132  
           - name DMU_WiFi_InternalIP
           - vlan 136  
@@ -100,6 +194,11 @@
           - name Internet_Backhaul 
           - vlan 940  
           - name DMU_CableModems
+          - interface vlan 1
+          - no spanning-tree vlan 1
+          - no ip address
+          - shutdown
+          - end
           - interface vlan 3
           - description printers
           - end
@@ -222,19 +321,30 @@
           - errdisable recovery cause psp
           - errdisable recovery cause mrp-miscabling
           - errdisable recovery interval 30
+          # TODO: choose how to handle this "transceiver type all" command.  Probs as its own play since "monitoring" is a sub-command of the main cmd
+          # TODO: also I may configure each "configure interface" command (the ones that concern the vlans and contain the "end" command) as their own
+          # plays in order to avoid potential errors
+          #- tranceiver type all
+          #- monitoring
 
-        # before: 
-          #- erase startup-config (note: this command would require confirmation, to be handled by ansible)  
-          #- delete vlan.dat (note: this command would require confirmation, to be handled by ansible)  
+          #  Note: the commands that are commented out below must be manually executed via console on the network switch prior to running this playbook.  
+          #  These commands are necessary in order to configure an interface on the switch over which Ansible may communicate via ssh/paramiko. 
+          #  IOS commands are preceeded by"-" the dash character 
+          #  **Human-entered commands(one per line):**
+          #- erase startup-config (note: this command would require confirmation from the user)  
+          #- delete vlan.dat (note: this command would require confirmation, to be handled by the user)  
           #- reload
-          #- copy usbflash0:(ios_image_name) flash:/
-          #- (note: this command would require confirmation, to be handled by ansible)  
+          #- copy usbflash0:/(ios_image_name) flash:/
+          # (note: this command would require confirmation, to be handled by the user)  
           #- boot system switch all flash:/(ios_image_name)
           #- reload (system installs the new image and then asks if we are ready to reboot/reload)
-          #- note: these commands below would be issued after the new image is loaded, which will take 10-20 min.   
+          #  note: commands below this line would be issued after the new image is loaded, which may take up to 10-20 min.   
           #- no logging console
           #- hostname (assign a hostname)
-          #- username itadmin privelage 15 secret M@rm0t5!~!
+          #- ip ssh version 2
+          #- spanning-tree mode mst
+          #- spanning-tree mst 0 priority 61440
+          #- username itadmin privilage 15 secret M@rm0t5!~!
           #- enable secret dmr909
           #- aaa new-model
           #- aaa authentication login default local  
@@ -243,8 +353,33 @@
           #- ip name-server 10.2.14.101
           #- vlan 2
           #- name switches
-          #- here, we would assign the vlan an ip and subnet mask that is not already in use
+          #  here, we would assign the vlan an ip and subnet mask that is not already in use
           #- int vlan 2 
           #- description switches
-          #
-    
+          #  here, we would need to configure an interface on the switch in trunk mode, allowing vlan 2 accross the int, and then connect that int to a 
+          #  switch that is already in the network configured for same.  
+
+- name: Set the clock
+  hosts:
+    cisco_ios_switches
+  gather_facts: false
+  become: true
+  tasks:
+    - name: output the current time
+      ansible.builtin.script:
+        cmd: /etc/ansible/ansible_main/playbooks/python_scripts
+        executable: /usr/bin/python3
+    - name: use this output to set time on cisco host
+      cisco.ios.ios_command:
+        commands:
+          - clock set {{ lookup('ansible.builtin.file', '/etc/ansible/ansible_main/playbooks/timestamp_file') }}
+
+- name: save our changes
+  hosts: 
+    cisco_ios_switches
+  gather_facts: false
+  become: true
+  tasks:
+    - name: save the running-config to the startup-config
+      cisco.ios.ios_config:
+        save_when: modified

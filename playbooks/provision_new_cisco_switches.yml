@@ -27,6 +27,7 @@
           - ip http server
           - ip http authentication local
           - ip http secure-server
+          - no spanning-tree vlan 1
 
     - name: add vlan 3
       cisco.ios.ios_config:
@@ -81,7 +82,7 @@
       cisco.ios.ios_config:
         lines:
           - name servers
-        beforea:
+        before:
           - vlan 14
           
     - name: add vlan 20
@@ -150,7 +151,7 @@
     - name: add vlan 60
       cisco.ios.ios_config:
         lines:
-          - name unknown
+          - name VLAN60
         before:
           - vlan 60
           
@@ -192,7 +193,7 @@
     - name: add vlan 300
       cisco.ios.ios_config:
         lines:
-          - name unknown1
+          - name VLAN300
         before:
           - vlan 300  
           
@@ -213,9 +214,16 @@
     - name: add vlan 800
       cisco.ios.ios_config:
         lines:
-          - name Brainstorm_Traffic1
+          - name VLAN800
         before:
           - vlan 800 
+
+    - name: add vlan 880
+      cisco.ios.ios_config:
+        lines:
+          - name Brainstorm_Traffic1
+        before:
+          - vlan 880
           
     - name: add vlan 881
       cisco.ios.ios_config:
@@ -248,7 +256,6 @@
     - name: shutdown interface vlan 1
       cisco.ios.ios_config:
         lines:
-          - no spanning-tree vlan 1
           - no ip address
           - shutdown
         before:
@@ -340,7 +347,7 @@
       cisco.ios.ios_config:
         lines:
           - description servers
-        beforea:
+        before:
           - interface vlan 14
           
     - name: add int vlan 20
@@ -409,7 +416,7 @@
     - name: add int vlan 60
       cisco.ios.ios_config:
         lines:
-          - description unknown
+          - description VLAN60
         before:
           - interface vlan 60
           
@@ -451,7 +458,7 @@
     - name: add int vlan 300
       cisco.ios.ios_config:
         lines:
-          - description unknown1
+          - description VLAN300
         before:
           - interface vlan 300  
           
@@ -472,10 +479,17 @@
     - name: add int vlan 800
       cisco.ios.ios_config:
         lines:
-          - description Brainstorm_Traffic1
+          - description VLAN800
         before:
           - interface vlan 800 
-          
+   
+    - name: add int vlan 880
+      cisco.ios.ios_config:
+        lines:
+          - description Brainstorm_Traffic1
+        before:
+          - interface vlan 880      
+    
     - name: add int vlan 881
       cisco.ios.ios_config:
         lines:
@@ -505,10 +519,8 @@
           - interface vlan 940  
 
             
-          # TODO: choose how to handle this "transceiver type all" command.  Probs as its own play since "monitoring" is a sub-command of the main cmd
-          # TODO: also I may configure each "configure interface" command (the ones that concern the vlans and contain the "end" command) as their own
-          # plays in order to avoid potential errors
-          #- tranceiver type all
+          #  note: (not all cisco switches support the below two commands)
+          #- transceiver type all
           #- monitoring
 
           #  Note: the commands that are commented out below must be manually executed via console on the network switch prior to running this playbook.  

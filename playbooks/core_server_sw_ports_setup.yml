@@ -1,0 +1,33 @@
+---
+
+- name: configure the switchports for switches dm-sw-coreserver-01 and dm-sw-coreserver-02
+  hosts: 
+    cisco_iosxe_switches
+  become: true
+  gather_facts: false
+  tasks:
+    - name: config trunk for hypervisor DMHV02 
+      cisco.ios.ios_config:
+        lines:
+          - switchport mode trunk
+          - switchport trunk allowed vlan 2
+          - switchport trunk allowed vlan add 6,7,9,10,11,14,30,32,136,137,208,209
+          - spanning-tree link-type point-to-point
+          - description DMHV02 NIC   
+        before:
+          - interface TenGigabitEthernet1/0/1
+    
+    - name: config trunk for hypervisor DMHV1
+      cisco.ios.ios_config:
+        lines:
+          - switchport mode trunk
+          - switchport trunk allowed vlan 2
+          - switchport trunk allowed vlan add 6,7,9,10,11,14,30,32,136,137,208,209
+          - spanning-tree link-type point-to-point
+          - description DMHV1 NIC   
+        before:
+          - interface TenGigabitEthernet1/0/2
+
+
+
+          

@@ -1,0 +1,20 @@
+---
+
+- name: prep the network switch as a netconf server
+  hosts:
+    cisco_iosxe_switches
+  become: true
+  gather_facts: false
+  ignore_errors: true
+  tasks:
+    - name: send the config commands that will enable netconf access to the device 
+      cisco.ios.ios_config:
+        lines:
+          - aaa authorization exec default local
+          - netconf-yang
+          - netconf legacy
+          
+    - name: send the command spearately "no feature candidate-datastore", which may fail
+      cisco.ios.ios_config:
+        lines:
+          - no netconf-yang feature candidate-datastore

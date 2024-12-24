@@ -28,7 +28,9 @@
           - ip http authentication local
           - ip http secure-server
           - no spanning-tree vlan 1
-
+          - service timestamps debug
+          - service timestamps log
+    
     - name: add vlan 3
       cisco.ios.ios_config:
         lines:
@@ -291,7 +293,6 @@
           - errdisable recovery cause oam-remote-failure
           - errdisable recovery cause loopback
           - errdisable recovery cause psp
-          - errdisable recovery cause mrp-miscabling
           - errdisable recovery interval 30
    
     - name: add int vlan 3
